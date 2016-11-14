@@ -15,7 +15,7 @@ variable "service_name" {
 }
 
 variable "ami" {
-  default = ""
+  default = "ami-d553f1b5"
 }
 
 variable "ssh_key_file" {
@@ -24,8 +24,4 @@ variable "ssh_key_file" {
 
 variable "ssh_key_name" {
   default = "virtual-redirects-key"
-}
-
-variable "health_check_target" {
-  default = "HTTP:8080/"
 }
