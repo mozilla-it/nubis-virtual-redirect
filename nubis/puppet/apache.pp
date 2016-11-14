@@ -8,15 +8,15 @@ include nubis_discovery
 nubis::discovery::service {
   $project_name:
     tags     => [ 'apache' ],
-    port     => 8080,
-    check    => '/usr/bin/curl -If http://localhost:8080',
+    port     => 80,
+    check    => '/usr/bin/curl -If http://localhost',
     interval => '30s',
 }
 
 class {
     'apache':
       default_mods        => true,
-      mpm_module          => false,
+      mpm_module          => 'prefork',
       default_vhost       => false,
       default_confd_files => false,
       service_enable      => false,
@@ -29,11 +29,10 @@ class {
       proxy_ips => [ '127.0.0.1', '10.0.0.0/8' ];
 }
 
-apache::vhost { $project_name:
+apache::vhost { 'redirects':
     port              => 80,
     default_vhost     => true,
     docroot           => '/var/www/html',
-    directoryindex    => 'index.html',
     docroot_owner     => 'root',
     docroot_group     => 'root',
     block             => ['scm'],
@@ -52,11 +51,6 @@ apache::vhost { $project_name:
         rewrite_rule => ['. https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]'],
       }
     ]
-}
-
-apache::vhost { 'elb.healthcheck':
-  port    => 8080,
-  docroot => '/var/www/html'
 }
 
 apache::vhost { 'whatsdeployed.paas.allizom.org non-ssl':
