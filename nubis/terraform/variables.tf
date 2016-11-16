@@ -15,7 +15,7 @@ variable "service_name" {
 }
 
 variable "ami" {
-  default = "ami-d553f1b5"
+  default = "ami-d7af02b7"
 }
 
 variable "ssh_key_file" {
