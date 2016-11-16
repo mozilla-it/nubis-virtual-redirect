@@ -94,27 +94,27 @@ apache::vhost { 'socialapi-demo.paas.allizom.org':
 }
 
 apache::vhost { 'affiliates.mozilla.org':
-  servername     => 'affiliates.mozilla.org',
-  port           => 80,
-  docroot        => '/var/www/html',
-  rewrites       => [{
+  servername    => 'affiliates.mozilla.org',
+  port          => 80,
+  docroot       => '/var/www/html',
+  rewrites      => [{
     rewrite_rule => [
       '^/media/uploads/(.*)$ https://s3.amazonaws.com/affiliates-banners/media/uploads/$1 [R=302]',
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
   }],
-  serveraliases   => [
+  serveraliases => [
     'affiliates.allizom.org',
   ]
 }
 
 apache::vhost { 'join.mozilla.org':
-  servername     => 'join.mozilla.org',
-  port           => 80,
-  docroot        => '/var/www/html',
-  rewrites       => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
-  serveraliases  => [
+  servername    => 'join.mozilla.org',
+  port          => 80,
+  docroot       => '/var/www/html',
+  rewrites      => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
+  serveraliases => [
     'join-dev.allizom.org',
     'join.allizom.org',
   ]
