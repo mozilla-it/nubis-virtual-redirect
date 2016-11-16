@@ -29,6 +29,11 @@ class {
       proxy_ips => [ '127.0.0.1', '10.0.0.0/8' ];
 }
 
+file { '/var/www/html/index.html':
+  ensure   => 'present',
+  source   => 'puppet:///nubis/files/index.html'
+}
+
 apache::vhost { 'redirects':
     port              => 80,
     default_vhost     => true,
