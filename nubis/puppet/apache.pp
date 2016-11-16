@@ -61,6 +61,14 @@ apache::vhost { 'whatsdeployed.paas.allizom.org non-ssl':
   redirect_dest   => 'http://whatsdeployed.io/'
 }
 
+apache::vhost { 'whatsdeployed.paas.allizom.org':
+  servername      => 'whatsdeployed.paas.allizom.org',
+  port            => 443,
+  docroot         => '/var/www/html',
+  redirect_status => 'temp',
+  redirect_dest   => 'http://whatsdeployed.io/'
+}
+
 apache::vhost { 'kildare.stage.mozilla.com':
   servername      => 'kildare.stage.mozilla.com',
   port            => 80,
