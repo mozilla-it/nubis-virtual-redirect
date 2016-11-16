@@ -1,0 +1,3 @@
+[submodule "nubis/travis"]
+	path = nubis/travis
+	url = git@github.com:nubisproject/nubis-travis.git
