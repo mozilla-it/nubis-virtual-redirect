@@ -69,9 +69,25 @@ apache::vhost { 'kildare.stage.mozilla.com':
   redirect_dest   => 'https://www.allizom.org'
 }
 
+# For prs.paas.allizom.org, I'm experimenting with the port
+# In the old Apache configuration we had a vhost that listened
+# on both 80 and 81 depending on the protocol (HTTP vs HTTPS).
+#
+# It's unclear to me at this point in time how we will want to
+# approach this in this deployment. For now, I have two vhosts
+# with different port attributes specified.
+
 apache::vhost { 'prs.paas.allizom.org':
   servername      => 'prs.paas.allizom.org',
   port            => 80,
+  docroot         => '/var/www/html',
+  redirect_status => 'temp',
+  redirect_dest   => 'http://prs.mozilla.io/'
+}
+
+apache::vhost { 'prs.paas.allizom.org':
+  servername      => 'prs.paas.allizom.org',
+  port            => 443,
   docroot         => '/var/www/html',
   redirect_status => 'temp',
   redirect_dest   => 'http://prs.mozilla.io/'
