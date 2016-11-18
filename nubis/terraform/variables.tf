@@ -15,13 +15,13 @@ variable "service_name" {
 }
 
 variable "ami" {
-  default = "ami-edbc118d"
+  default = "ami-36b11c56"
 }
 
 variable "ssh_key_file" {
-  default = "~/.ssh/id_rsa.pub"
+  default = ""
 }
 
 variable "ssh_key_name" {
-  default = "virtual-redirects-key"
+  default = ""
 }
