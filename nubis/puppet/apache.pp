@@ -58,76 +58,31 @@ apache::vhost { 'redirects':
     ]
 }
 
-apache::vhost { 'whatsdeployed.paas.allizom.org http':
-  servername      => 'whatsdeployed.paas.allizom.org',
-  port            => 80,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'http://whatsdeployed.io/'
-}
-
-apache::vhost { 'whatsdeployed.paas.allizom.org https':
-  servername      => 'whatsdeployed.paas.allizom.org',
-  port            => 443,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'http://whatsdeployed.io/'
-}
-
-apache::vhost { 'kildare.stage.mozilla.com http':
+apache::vhost { 'kildare.stage.mozilla.com':
   servername      => 'kildare.stage.mozilla.com',
   port            => 80,
   docroot         => '/var/www/html',
   redirect_status => 'permanent',
-  redirect_dest   => 'https://www.allizom.org'
+  redirect_dest   => 'https://www.allizom.org',
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
 }
 
-apache::vhost { 'prs.paas.allizom.org http':
+apache::vhost { 'prs.paas.allizom.org':
   servername      => 'prs.paas.allizom.org',
   port            => 80,
   docroot         => '/var/www/html',
   redirect_status => 'temp',
-  redirect_dest   => 'http://prs.mozilla.io/'
+  redirect_dest   => 'http://prs.mozilla.io/',
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
 }
 
-apache::vhost { 'prs.paas.allizom.org https':
-  servername      => 'prs.paas.allizom.org',
-  port            => 443,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'http://prs.mozilla.io/'
-}
-
-apache::vhost { 'jugband.paas.allizom.org':
-  servername      => 'jugband.paas.allizom.org',
-  port            => 80,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'http://jugband.herokuapp.com/'
-}
-
-apache::vhost { 'socialapi-demo.paas.allizom.org http':
-  servername      => 'socialapi-demo.paas.allizom.org',
-  port            => 80,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'https://socialapi-demo.herokuapp.com/'
-}
-
-apache::vhost { 'socialapi-demo.paas.allizom.org https':
-  servername      => 'socialapi-demo.paas.allizom.org',
-  port            => 443,
-  docroot         => '/var/www/html',
-  redirect_status => 'temp',
-  redirect_dest   => 'https://socialapi-demo.herokuapp.com/'
-}
-
-apache::vhost { 'affiliates.mozilla.org http':
-  servername    => 'affiliates.mozilla.org',
-  port          => 80,
-  docroot       => '/var/www/html',
-  rewrites      => [{
-    rewrite_rule => [
+apache::vhost { 'affiliates.mozilla.org':
+  servername        => 'affiliates.mozilla.org',
+  port              => 80,
+  docroot           => '/var/www/html',
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
+  rewrites          => [{
+    rewrite_rule    => [
       '^/media/uploads/(.*)$ https://s3.amazonaws.com/affiliates-banners/media/uploads/$1 [R=302]',
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
@@ -138,37 +93,11 @@ apache::vhost { 'affiliates.mozilla.org http':
   ]
 }
 
-apache::vhost { 'affiliates.mozilla.org https':
-  servername    => 'affiliates.mozilla.org',
-  port          => 443,
-  docroot       => '/var/www/html',
-  rewrites      => [{
-    rewrite_rule => [
-      '^/media/uploads/(.*)$ https://s3.amazonaws.com/affiliates-banners/media/uploads/$1 [R=302]',
-      '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
-      '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
-    ]
-  }],
-  serveraliases => [
-    'affiliates.allizom.org',
-  ]
-}
-
-apache::vhost { 'join.mozilla.org http':
-  servername    => 'join.mozilla.org',
-  port          => 80,
-  docroot       => '/var/www/html',
-  rewrites      => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
-  serveraliases => [
-    'join-dev.allizom.org',
-    'join.allizom.org',
-  ]
-}
-
-apache::vhost { 'join.mozilla.org https':
-  servername    => 'join.mozilla.org',
-  port          => 443,
-  docroot       => '/var/www/html',
+apache::vhost { 'join.mozilla.org':
+  servername      => 'join.mozilla.org',
+  port            => 80,
+  docroot         => '/var/www/html',
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites      => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
   serveraliases => [
     'join-dev.allizom.org',
