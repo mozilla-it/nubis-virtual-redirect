@@ -58,6 +58,7 @@ apache::vhost { 'redirects':
     ]
 }
 
+# bug 827186 (redirect kildare.stage to bedrock-stage)
 apache::vhost { 'kildare.stage.mozilla.com':
   servername        => 'kildare.stage.mozilla.com',
   port              => 80,
@@ -68,6 +69,7 @@ apache::vhost { 'kildare.stage.mozilla.com':
   docroot           => false
 }
 
+# bug 1220879
 apache::vhost { 'prs.paas.allizom.org':
   servername        => 'prs.paas.allizom.org',
   port              => 80,
@@ -78,6 +80,7 @@ apache::vhost { 'prs.paas.allizom.org':
   docroot        => false
 }
 
+# bug 1232976
 apache::vhost { 'affiliates.allizom.org':
   servername        => 'affiliates.allizom.org',
   port              => 80,
@@ -94,6 +97,7 @@ apache::vhost { 'affiliates.allizom.org':
   headers        => 'always set Cache-Control "max-age=3600"',
 }
 
+#bug 1263033
 apache::vhost { 'join.allizom.org':
   servername        => 'join.allizom.org',
   port              => 80,
