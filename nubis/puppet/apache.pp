@@ -76,8 +76,8 @@ apache::vhost { 'prs.paas.allizom.org':
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
 }
 
-apache::vhost { 'affiliates.mozilla.org':
-  servername        => 'affiliates.mozilla.org',
+apache::vhost { 'affiliates.allizom.org':
+  servername        => 'affiliates.allizom.org',
   port              => 80,
   docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
@@ -87,20 +87,16 @@ apache::vhost { 'affiliates.mozilla.org':
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
-  }],
-  serveraliases     => [
-    'affiliates.allizom.org',
-  ]
+  }]
 }
 
-apache::vhost { 'join.mozilla.org':
-  servername        => 'join.mozilla.org',
+apache::vhost { 'join.allizom.org':
+  servername        => 'join.allizom.org',
   port              => 80,
   docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites          => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
   serveraliases     => [
     'join-dev.allizom.org',
-    'join.allizom.org',
   ]
 }
