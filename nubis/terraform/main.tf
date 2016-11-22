@@ -12,12 +12,12 @@ module "worker" {
 }
 
 module "load_balancer" {
-  source       = "github.com/nubisproject/nubis-terraform//load_balancer?ref=master"
-  region       = "${var.region}"
-  environment  = "${var.environment}"
-  account      = "${var.account}"
-  service_name = "${var.service_name}"
-  ssl_cert_name_prefix = "redirects-allizom"
+  source               = "github.com/nubisproject/nubis-terraform//load_balancer?ref=master"
+  region               = "${var.region}"
+  environment          = "${var.environment}"
+  account              = "${var.account}"
+  service_name         = "${var.service_name}"
+  ssl_cert_name_prefix = "redirects-static-san-mozilla"
 }
 
 module "dns" {

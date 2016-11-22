@@ -30,7 +30,7 @@ class {
 }
 
 file { '/var/www/html/index.html':
-  ensure => 'present',
+  ensure => present,
   source => 'puppet:///nubis/files/index.html'
 }
 
@@ -58,28 +58,32 @@ apache::vhost { 'redirects':
     ]
 }
 
+# bug 827186 (redirect kildare.stage to bedrock-stage)
 apache::vhost { 'kildare.stage.mozilla.com':
   servername        => 'kildare.stage.mozilla.com',
   port              => 80,
-  docroot           => '/var/www/html',
-  redirect_status   => 'permanent',
+  redirect_status   => 'temp',
   redirect_dest     => 'https://www.allizom.org',
-  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
+  manage_docroot    => false,
+  docroot           => false
 }
 
+# bug 1220879
 apache::vhost { 'prs.paas.allizom.org':
   servername        => 'prs.paas.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   redirect_status   => 'temp',
   redirect_dest     => 'http://prs.mozilla.io/',
-  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
+  manage_docroot    => false,
+  docroot           => false
 }
 
+# bug 1232976
 apache::vhost { 'affiliates.allizom.org':
   servername        => 'affiliates.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites          => [{
     rewrite_rule    => [
@@ -87,16 +91,21 @@ apache::vhost { 'affiliates.allizom.org':
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
-  }]
+  }],
+  manage_docroot    => false,
+  docroot           => false,
+  headers           => 'always set Cache-Control "max-age=3600"',
 }
 
+#bug 1263033
 apache::vhost { 'join.allizom.org':
   servername        => 'join.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites          => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
   serveraliases     => [
     'join-dev.allizom.org',
-  ]
+  ],
+  manage_docroot    => false,
+  docroot           => false
 }
