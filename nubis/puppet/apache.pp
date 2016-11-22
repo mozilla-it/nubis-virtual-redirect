@@ -76,8 +76,8 @@ apache::vhost { 'prs.paas.allizom.org':
   redirect_status   => 'temp',
   redirect_dest     => 'http://prs.mozilla.io/',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
-  manage_docroot => false,
-  docroot        => false
+  manage_docroot    => false,
+  docroot           => false
 }
 
 # bug 1232976
@@ -92,9 +92,9 @@ apache::vhost { 'affiliates.allizom.org':
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
   }],
-  manage_docroot => false,
-  docroot        => false,
-  headers        => 'always set Cache-Control "max-age=3600"',
+  manage_docroot    => false,
+  docroot           => false,
+  headers           => 'always set Cache-Control "max-age=3600"',
 }
 
 #bug 1263033
