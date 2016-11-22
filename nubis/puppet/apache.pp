@@ -30,7 +30,7 @@ class {
 }
 
 file { '/var/www/html/index.html':
-  ensure => 'present',
+  ensure => present,
   source => 'puppet:///nubis/files/index.html'
 }
 
