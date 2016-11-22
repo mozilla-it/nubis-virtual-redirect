@@ -61,25 +61,26 @@ apache::vhost { 'redirects':
 apache::vhost { 'kildare.stage.mozilla.com':
   servername        => 'kildare.stage.mozilla.com',
   port              => 80,
-  docroot           => '/var/www/html',
-  redirect_status   => 'permanent',
+  redirect_status   => 'temp',
   redirect_dest     => 'https://www.allizom.org',
-  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
+  manage_docroot    => false,
+  docroot           => false
 }
 
 apache::vhost { 'prs.paas.allizom.org':
   servername        => 'prs.paas.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   redirect_status   => 'temp',
   redirect_dest     => 'http://prs.mozilla.io/',
-  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"'
+  access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
+  manage_docroot => false,
+  docroot        => false
 }
 
 apache::vhost { 'affiliates.allizom.org':
   servername        => 'affiliates.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites          => [{
     rewrite_rule    => [
@@ -87,16 +88,19 @@ apache::vhost { 'affiliates.allizom.org':
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
-  }]
+  }],
+  manage_docroot    => false,
+  docroot           => false
 }
 
 apache::vhost { 'join.allizom.org':
   servername        => 'join.allizom.org',
   port              => 80,
-  docroot           => '/var/www/html',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   rewrites          => [ { rewrite_rule => ['^/.*$ https://donate.mozilla.org/? [R=307]'] } ],
   serveraliases     => [
     'join-dev.allizom.org',
-  ]
+  ],
+  manage_docroot    => false,
+  docroot           => false
 }
