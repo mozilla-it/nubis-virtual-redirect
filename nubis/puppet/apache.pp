@@ -89,8 +89,9 @@ apache::vhost { 'affiliates.allizom.org':
       '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
   }],
-  manage_docroot    => false,
-  docroot           => false
+  manage_docroot => false,
+  docroot        => false,
+  headers        => 'always set Cache-Control "max-age=3600"',
 }
 
 apache::vhost { 'join.allizom.org':
