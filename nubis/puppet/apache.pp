@@ -58,12 +58,12 @@ apache::vhost { 'redirects':
     ]
 }
 
-# bug 827186 (redirect kildare.stage to bedrock-stage)
-apache::vhost { 'kildare.stage.mozilla.com':
-  servername        => 'kildare.stage.mozilla.com',
+# bug 1220879
+apache::vhost { 'whatsdeployed.paas.allizom.org':
+  servername        => 'whatsdeployed.paas.allizom.org',
   port              => 80,
   redirect_status   => 'temp',
-  redirect_dest     => 'https://www.allizom.org',
+  redirect_dest     => 'http://whatsdeployed.io/',
   access_log_format => '%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{X-Forwarded-Proto}i\"',
   manage_docroot    => false,
   docroot           => false
