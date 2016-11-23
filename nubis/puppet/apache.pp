@@ -89,8 +89,7 @@ apache::vhost { 'affiliates.allizom.org':
     rewrite_rule    => [
       '^/media/uploads/(.*)$ https://s3.amazonaws.com/affiliates-banners/media/uploads/$1 [R=302]',
       '^/referral/(.*)$ https://mozilla.org/firefox/desktop/129 [R=302]',
-      '^/(.+)$ https://www.mozilla.org/contribute/friends/ [R=302]',
-      '^/$ https://www.mozilla.org/contribute/friends/ [R=302]',
+      '^/(.*)$ https://www.mozilla.org/contribute/friends/ [R=302]',
     ]
   }],
   manage_docroot    => false,
