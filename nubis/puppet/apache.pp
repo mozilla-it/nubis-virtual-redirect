@@ -109,3 +109,12 @@ apache::vhost { 'join.allizom.org':
   manage_docroot    => false,
   docroot           => false
 }
+
+# bug 1323809
+apache::vhost { 'status.mozilla.org':
+  servername     => 'status.mozilla.org',
+  port           => 80,
+  rewrites       => [ { rewrite_rule => ['^/.*$ http://hardhat.mozilla.net/en-US/outages.html [R=307]'] } ],
+  manage_docroot => false,
+  docroot        => false
+}
