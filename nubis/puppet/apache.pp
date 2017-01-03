@@ -3,10 +3,7 @@
 # https://github.com/puppetlabs/puppetlabs-apache
 #
 
-$timeout = 120
-
 class { 'nubis_apache':
-  timeout                => $timeout,
 }
 
 file { '/var/www/html/index.html':
@@ -31,8 +28,6 @@ apache::vhost { 'redirects':
     custom_fragment    => "
 # Clustered without coordination
 FileETag None
-# Keep ELBs happily idling for a long while
-RequestReadTimeout header=${timeout} body=${timeout}
 ",
     headers            => [
       "set X-Nubis-Version ${project_version}",
